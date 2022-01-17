@@ -2,3 +2,26 @@
 `);return`Or\xF0ill ${r.length}/\u221E
 
 ${a}`},U=class extends y{constructor(){super(...arguments);this.state={guessedWords:[],gameState:{state:"playing",currentWord:""},secretWord:"",letterStates:{},generation:0};this.onKeyDown=a=>{let i=a.target;a.key==="Enter"&&(i.tagName==="BUTTON"||i.tagName==="A")||this.submitKey(a.key)};this.submitKey=a=>{switch(a){case"Enter":this.submitWord();break;case"Backspace":this.backspace();break;case"GiveUp":this.giveUp();break;default:this.appendLetter(a.toLowerCase());break}};this.playAgain=()=>{this.reset()};this.copyResults=()=>{let a=Ca(this.state.guessedWords);return navigator.clipboard.writeText(a)}}componentDidMount(){document.addEventListener("keydown",this.onKeyDown),this.reset()}componentWillUnmount(){document.removeEventListener("keydown",this.onKeyDown)}reset(){let a=ga();this.setState({guessedWords:[],gameState:{state:"playing",currentWord:""},secretWord:a,letterStates:{},generation:this.state.generation+1})}appendLetter(a){let{gameState:i}=this.state;if(i.state!=="playing")return;let{currentWord:l}=i;l.length>=5||fa(a)&&this.setState({gameState:{state:"playing",currentWord:l+a}})}backspace(){let{gameState:a}=this.state;if(a.state!=="playing")return;let{currentWord:i}=a;this.setState({gameState:{state:"playing",currentWord:i.substring(0,i.length-1)}})}submitWord(){let{gameState:a}=this.state;if(a.state!=="playing")return;let{currentWord:i}=a,l=i===this.state.secretWord;if(l||i.length===5&&N(i)){let t=wa(i,this.state.secretWord),s=Object.assign({},this.state.letterStates);for(let{letter:k,state:e}of t){let g=s[k];(g==null||g<e)&&(s[k]=e)}l?this.setState({guessedWords:[...this.state.guessedWords,t],gameState:{state:"won"},letterStates:s}):this.setState({guessedWords:[...this.state.guessedWords,t],gameState:{state:"playing",currentWord:""},letterStates:s})}}giveUp(){let{gameState:a}=this.state;a.state==="playing"&&this.setState({gameState:{state:"resigned"}})}render(){let{gameState:a,letterStates:i,guessedWords:l,secretWord:t,generation:s}=this.state,k=[...l],e=null;if(a.state==="playing"){let{currentWord:g}=a;k.push(g.split("").map(n=>({letter:n,state:0})));let o=g.length===5&&N(g);e=u(I,{letterStates:i,onKeyDown:this.submitKey,wordIsValid:o})}else a.state==="resigned"&&k.push(t.split("").map(g=>({letter:g,state:3,resigning:!0}))),e=u(z,{state:a.state,guesses:l.length,onPlayAgain:this.playAgain,onCopyResults:this.copyResults});return u(S,null,u(G,{key:s,words:k}),e)}};function H(){return u("div",{class:"main-container"},u(M,null),u("hr",null),u(U,null))}ka(u(H,null),document.body);})();
+/* @license Preact
+The MIT License (MIT)
+
+Copyright (c) 2015-present Jason Miller
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
